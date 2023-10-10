@@ -4,6 +4,7 @@ export default function Sidebar ({children, ...props}) {
     return (
 
         <Navbar>
+           
             <MenuItem href="/" label="Dashboard" icon={
                 <svg
                 className="icon"
