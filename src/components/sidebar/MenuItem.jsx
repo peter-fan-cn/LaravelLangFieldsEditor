@@ -1,9 +1,10 @@
 
-export default function MenuItem ({ children, label, href, icon, ...props }) {
+import {NavLink} from 'react-router-dom'
+export default function MenuItem ({ children, label, path, icon, ...props }) {
   return (
     <li>
       <a
-        href={href || '#'}
+        href={"#"+path}
         className="menu-item group"
       >
         {icon}

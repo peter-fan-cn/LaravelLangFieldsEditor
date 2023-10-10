@@ -1,22 +1,38 @@
-import { useState } from "react";
-import reactLogo from "../assets/react.svg";
-import { invoke } from "@tauri-apps/api/tauri";
+
+import { createHashRouter, RouterProvider } from 'react-router-dom'
+import { ChartPieIcon, LanguageIcon } from '@heroicons/react/24/solid'
+import SideBar from '../components/sidebar/Sidebar'
+import List from '../Pages/LanguageFiles/List'
+import Dashboard from '../Pages/Dashboard'
+
+const routes = [
+  {
+    path: '/',
+    Component: Dashboard,
+    label: 'Dashboard',
+    icon: <ChartPieIcon className='icon'/>
+  }, 
+  {
+    path:'/languages',
+    Component: List,
+    label: 'Languages',
+    icon: <LanguageIcon className='icon'/>
+  }
+]
+
+const router = createHashRouter(routes)
+
 
 
 function App() {
-  const [greetMsg, setGreetMsg] = useState("");
-  const [name, setName] = useState("");
-
-  async function greet() {
-    // Learn more about Tauri commands at https://tauri.app/v1/guides/features/command
-    setGreetMsg(await invoke("greet", { name }));
-  }
-
   return (
-    <div className="container">
-      <h1>Welcome to Tauri!</h1>
-
-      <a href="/hello">show hello world</a>
+    <div className='min-h-screen w-full'>
+      <div className='flex gap-6 overflow-hidden bg-gray-50 dark:bg-gray-900 h-full'>
+        <SideBar menus={routes}/>
+        <main className='p-4 sm:ml-64 grow bg-white'>
+          <RouterProvider router={router} />
+        </main>
+      </div>
     </div>
   );
 }
