@@ -1,15 +1,15 @@
 
-import {NavLink} from 'react-router-dom'
-export default function MenuItem ({ children, label, path, icon, ...props }) {
+import {Link} from 'react-router-dom'
+export default function MenuItem ({label, path, icon }) {
   return (
     <li>
-      <a
-        href={"#"+path}
+      <Link
+        to={path}
         className="menu-item group"
       >
         {icon}
         <span className='ml-3'>{label}</span>
-      </a>
+      </Link>
     </li>
   )
 }
