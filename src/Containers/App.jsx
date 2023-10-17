@@ -1,5 +1,5 @@
 
-import { createHashRouter, RouterProvider } from 'react-router-dom'
+import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import { ChartPieIcon, LanguageIcon } from '@heroicons/react/24/solid'
 import SideBar from '../components/sidebar/Sidebar'
 import List from '../Pages/LanguageFiles/List'
@@ -22,7 +22,7 @@ const routes = [
 ]
 
 
-const router = createHashRouter([
+const router = createBrowserRouter([
   {
     path:"/",
     element: <Layout routes={routes}/>,
