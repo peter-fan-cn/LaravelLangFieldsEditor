@@ -1,0 +1,15 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+@layer components {
+    .btn {
+        @apply px-3 py-2 ring-offset-1 focus:ring-2 hover:ring-2 outline-none rounded
+    }
+
+    .btn-primary {
+        @apply bg-amber-400 hover:bg-amber-500 hover:ring-amber-300 focus:bg-amber-500 focus:ring-amber-300 text-white
+    }
+
+}
