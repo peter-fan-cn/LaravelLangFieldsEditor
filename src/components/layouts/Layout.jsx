@@ -1,8 +1,9 @@
 import { Outlet } from 'react-router-dom'
 import { Menubar } from 'primereact/menubar'
+import { getCurrent } from '@tauri-apps/api/window'
 import logo from '../../assets/logo.svg'
 import {  useDispatch } from 'react-redux';
-import {  selectFolder } from '../../store/root';
+import {  saveFiles, selectFolder } from '../../store/root';
 
 
 export function MainMenu () {
@@ -14,16 +15,25 @@ export function MainMenu () {
           command:()=>{
             dispatch(selectFolder())
           }
+        },
+        {
+          label: 'Add Key',
+          icon: 'pi pi-fw pi-plus',
         
         },
         {
-          label: 'Edit',
-          icon: 'pi pi-fw pi-file-edit',
-        
+          label: 'Save',
+          icon: 'pi pi-fw pi-save',
+          command:()=>{
+            dispatch(saveFiles())
+          }
         },
         {
           label: 'Close',
-          icon: 'pi pi-fw pi-power-off'
+          icon: 'pi pi-fw pi-power-off',
+          command:()=>{
+            getCurrent().close()
+          }
         }
   ]
   const start = <img src={logo} height="40" className="mr-2 w-10 h-10"/>

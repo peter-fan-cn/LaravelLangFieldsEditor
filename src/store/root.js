@@ -2,7 +2,6 @@ import { open } from '@tauri-apps/api/dialog'
 import { readDir, readTextFile, writeTextFile } from '@tauri-apps/api/fs'
 import { createSlice } from '@reduxjs/toolkit'
 import _ from 'lodash'
-import { basename } from '@tauri-apps/api/path'
 
 const initialState = {
   langPath: null,
@@ -32,7 +31,7 @@ export const pathSlice = createSlice({
     conventToTable (state) {
       const { entities } = state
       const data = {}
-      const columns = [{code:'key', label:'message',}]
+      const columns = [{code:'key', label:'Message Key',}]
       entities.forEach(({code, language, content, name, path}) => {
         columns.push({code, label: language, name, path})
         if (content) {
@@ -46,7 +45,7 @@ export const pathSlice = createSlice({
       })
       state.columns = [...columns]
       state.records = Object.values(data)
-    }
+    },
   }
 })
 
@@ -95,7 +94,14 @@ export const selectFolder = () => async dispatch => {
   dispatch(conventToTable())
 }
 
-export const saveFiles = () => {}
+export const saveFiles = () => async (dispatch, getState) => {
+  const {entities} = getState().root
+  for (let i = 0; i < entities.length; i++) {
+    const file = entities[i];
+    const content = file.content
+    await writeTextFile(file.path, JSON.stringify(content, null, 4))
+  }
+}
 
 export const langPath = ({ root }) => root.langPath
 export const entities = ({ root }) => root.entities
