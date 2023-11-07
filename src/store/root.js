@@ -7,7 +7,9 @@ const initialState = {
   langPath: null,
   entities: [],
   records: [],
-  columns: []
+  columns: [],
+  selected: null,
+  saving: false,
 }
 
 // json files in lang path
@@ -27,6 +29,17 @@ export const pathSlice = createSlice({
       // json files in /lang path
 
       files.filter(file => _.endsWith(file.path, '.json'))
+    },
+    set(state, {payload: values}) {
+      for (const key in values) {
+        state[key] = values[key]
+      }
+    },
+    select(state, {payload: key}){
+      
+    },
+    unSelect(state, {payload: key}) {
+      
     },
     conventToTable (state) {
       const { entities } = state
@@ -95,12 +108,14 @@ export const selectFolder = () => async dispatch => {
 }
 
 export const saveFiles = () => async (dispatch, getState) => {
+  dispatch(set({saving: true}))
   const {entities} = getState().root
   for (let i = 0; i < entities.length; i++) {
     const file = entities[i];
     const content = file.content
     await writeTextFile(file.path, JSON.stringify(content, null, 4))
   }
+  dispatch(set({saving: false}))
 }
 
 export const langPath = ({ root }) => root.langPath
@@ -108,5 +123,7 @@ export const entities = ({ root }) => root.entities
 
 export const records = ({ root }) => root.records
 export const columns = ({ root }) => root.columns
+
+export const stage = ({ root }) => root
 
 export default pathSlice.reducer

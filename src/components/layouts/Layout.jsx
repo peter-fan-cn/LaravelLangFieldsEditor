@@ -1,44 +1,6 @@
 import { Outlet } from 'react-router-dom'
-import { Menubar } from 'primereact/menubar'
-import { getCurrent } from '@tauri-apps/api/window'
-import logo from '../../assets/logo.svg'
-import {  useDispatch } from 'react-redux';
-import {  saveFiles, selectFolder } from '../../store/root';
+import MainMenu from '../menus/Menu'
 
-
-export function MainMenu () {
-  const dispatch = useDispatch();
-  const items = [
-        {
-          label: 'Open',
-          icon: 'pi pi-fw pi-folder-open',
-          command:()=>{
-            dispatch(selectFolder())
-          }
-        },
-        {
-          label: 'Add Key',
-          icon: 'pi pi-fw pi-plus',
-        
-        },
-        {
-          label: 'Save',
-          icon: 'pi pi-fw pi-save',
-          command:()=>{
-            dispatch(saveFiles())
-          }
-        },
-        {
-          label: 'Close',
-          icon: 'pi pi-fw pi-power-off',
-          command:()=>{
-            getCurrent().close()
-          }
-        }
-  ]
-  const start = <img src={logo} height="40" className="mr-2 w-10 h-10"/>
-  return <Menubar model={items} start={start}/>
-}
 
 export default function Layout () {
   return (
