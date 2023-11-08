@@ -1,39 +1,25 @@
+import { RouterProvider } from 'react-router-dom'
+import { Provider } from 'react-redux'
+import { PrimeReactProvider } from 'primereact/api'
+import store from '../store'
+import router from '../router'
+import "../styles.css"
+import 'primeicons/primeicons.css';
+import "primereact/resources/primereact.css";
+import "primereact/resources/themes/md-light-indigo/theme.css";
 
-import { createBrowserRouter, RouterProvider } from 'react-router-dom'
-import { ChartPieIcon, LanguageIcon } from '@heroicons/react/24/solid'
-import SideBar from '../components/sidebar/Sidebar'
-import List from '../Pages/LanguageFiles/List'
-import Dashboard from '../Pages/Dashboard'
-import Layout from '../components/layouts/Layout'
-
-const routes = [
-  {
-    index: true,
-    element: <Dashboard/>,
-    label: 'Dashboard',
-    icon: <ChartPieIcon className='icon'/>
-  }, 
-  {
-    path:'languages',
-    element: <List/>,
-    label: 'Languages',
-    icon: <LanguageIcon className='icon'/>
+function App () {
+  const value = {
+    appendTo: 'self'
   }
-]
 
-
-const router = createBrowserRouter([
-  {
-    path:"/",
-    element: <Layout routes={routes}/>,
-    children: routes
-  }
-])
-
-function App() {
   return (
-      <RouterProvider router={router} />
-  );
+    <PrimeReactProvider value={value}>
+      <Provider store={store}>
+        <RouterProvider router={router} />
+      </Provider>
+    </PrimeReactProvider>
+  )
 }
 
-export default App;
+export default App
